@@ -29,12 +29,11 @@ const Cart = (): JSX.Element => {
     priceFormatted: formatPrice(product.price),
   }));
 
-  const total =
-    formatPrice(
-      cart.reduce((sumTotal, product) => {
-        return sumTotal + (product.price * product.amount)
-      }, 0)
-    )
+  const total = formatPrice(
+    cart.reduce((sumTotal, product) => {
+      return sumTotal + product.price * product.amount;
+    }, 0)
+  );
 
   function handleProductIncrement(product: Product) {
     updateProductAmount({ productId: product.id, amount: +1 });
@@ -44,9 +43,9 @@ const Cart = (): JSX.Element => {
     updateProductAmount({ productId: product.id, amount: -1 });
   }
 
-  // function handleRemoveProduct(productId: number) {
-  //   // TODO
-  // }
+  function handleRemoveProduct(productId: number) {
+    removeProduct(productId);
+  }
 
   return (
     <Container>
@@ -102,7 +101,7 @@ const Cart = (): JSX.Element => {
                 <button
                   type="button"
                   data-testid="remove-product"
-                  // onClick={() => handleRemoveProduct(product.id)}
+                  onClick={() => handleRemoveProduct(product.id)}
                 >
                   <MdDelete size={20} />
                 </button>
